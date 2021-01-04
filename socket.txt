@@ -1,0 +1,18 @@
+from websocket import create_connection
+import json, time
+
+
+def test_socket():
+    ws = create_connection(
+        "ws://192.168.10.54:8051/?params={%22clientId%22:%22USER20201116220000000061%22,%22authType%22:%22userId%22,%22terminal%22:%22ADMIN.WEB%22,%22authParams%22:{%22token%22:%22b6ee1037b16dbcd2d72f5d1858c802b9%22,%22param%22:%22C828FC0A2FF9D16D0EE4BF650589FBD92572BD8DBF0C1A258B4482B59F5FBE64%22}}")
+    try:
+            data = {"timestamp": 1609230120438, "flag": "Q4S", "type": "push.heartbeat"}
+            ws.send(json.dumps(data, ensure_ascii=False))
+            time.sleep(2)
+            print(ws.recv())
+    except Exception as e:
+        print("%s发生了%s异常",(time.asctime(time.localtime(time.time())),e))
+
+
+if __name__ == '__main__':
+    test_socket()
